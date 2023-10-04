@@ -63,10 +63,8 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 <tr><td>조회수</td><td>${boardDTO.readcount}</td></tr>
 <tr><td>제목</td><td>${boardDTO.subject}</td></tr>
 <tr><td>첨부파일</td>
-    <td><a href="upload/${boardDTO.file} " download>
-        ${boardDTO.file}</a>
-        <img src="upload/${boardDTO.file}" 
-         width="200" height="200">
+    <td><a href="${pageContext.request.contextPath}/resources/upload/${boardDTO.file}" download> ${boardDTO.file} </a>
+        <img src="${pageContext.request.contextPath}/resources/upload/${boardDTO.file}" width="200" height="200">
         </td></tr>
 <tr><td>내용</td><td>${boardDTO.content}</td></tr>    
 </table>

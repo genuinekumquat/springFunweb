@@ -45,7 +45,7 @@ public class BoardDAO {
 	public BoardDTO getBoard(int num) {
 		System.out.println("BoardDAO getBoard()");
 		
-		return sqlSession.selectOne(namespace+".getBoard");
+		return sqlSession.selectOne(namespace+".getBoard",num);
 	}//getBoard
 
 }//클래스 

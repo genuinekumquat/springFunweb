@@ -1,15 +1,21 @@
 package com.itwillbs.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.PageDTO;
@@ -22,6 +28,11 @@ public class BoardController {
 	//BoardService 객체생성 
 	@Inject
 	private BoardService boardService;
+	
+	//upload 폴더 파일경로 객체생성
+		// name = "uploadPath"  => servlet-context.xml 에 가져옴
+		@Resource(name = "uploadPath")
+		private String uploadPath;
 
 //	가상주소 http://localhost:8080/myweb/board/write
 	@GetMapping("/write")
@@ -113,5 +124,47 @@ public class BoardController {
 		// WEB-INF/views/center/content.jsp
 		return "center/content";
 	}//
+	
+	
+//   ------------------파일글쓰기-------------------	
+	
+//	가상주소 http://localhost:8080/myweb/board/write
+	@GetMapping("/fwrite")
+	public String fwrite() {
+		// center/fwrite.jsp
+		// WEB-INF/views/center/fwrite.jsp
+		return "center/fwrite";
+	}//
+	
+	//	가상주소 http://localhost:8080/FunWeb/board/fwritePro	
+//	@RequestMapping(value = "/fwritePro", method = RequestMethod.POST)
+	@PostMapping("/fwritePro")
+	public String fwritePro(HttpServletRequest request, MultipartFile file) throws Exception {
+		System.out.println("BoardController fwritePro()");
+		// name="file" -> MultipartFile file 이름 동일하게 
+		
+		BoardDTO boardDTO =new BoardDTO();
+		boardDTO.setName(request.getParameter("name"));
+		boardDTO.setSubject(request.getParameter("subject"));
+		boardDTO.setContent(request.getParameter("content"));
+		
+		// 첨부파일 업로드 -> pom.xml에 프로그램 설치 
+		// servlet-context.xml에 설정 
+		// 파일이름 랜덤문자_첨부파일이름
+		UUID uuid = UUID.randomUUID();
+		String filename=uuid.toString()+"_"+file.getOriginalFilename();
+		// file.getBytes()원본파일 => upload 첨부파일 복사(업로드)
+		FileCopyUtils.copy(file.getBytes(), new File(uploadPath,filename) );
+		
+		boardDTO.setFile(filename);
+		
+		// boardDTO에 첨부파일 이름 저장 
+		boardService.insertBoard(boardDTO);
+		
+		// board/fwritePro.jsp
+		// WEB-INF/views/center/fwritePro.jsp
+		return "redirect:/board/list";
+	}//		
+	
 	
 }//클래스 

@@ -21,7 +21,7 @@
 		select count(*) from board 
 	</select>
 
-	<select id="getBoard">
+	<select id="getBoard" resultType="com.itwillbs.domain.BoardDTO">
 		select * from board where num = #{num}
 	</select>
 
