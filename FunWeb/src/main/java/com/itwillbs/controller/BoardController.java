@@ -115,7 +115,9 @@ public class BoardController {
 	public String content(HttpServletRequest request, Model model) {
 		System.out.println("BoardCondroller content");
 		int num = Integer.parseInt(request.getParameter("num"));
-		
+		//조회수 증가 
+		boardService.updateReadcount(num);
+		// 글가져오기 
 		BoardDTO boardDTO = boardService.getBoard(num);
 		
 		model.addAttribute("boardDTO", boardDTO);
@@ -124,6 +126,35 @@ public class BoardController {
 		// WEB-INF/views/center/content.jsp
 		return "center/content";
 	}//
+	
+//	가상주소 http://localhost:8080/myweb/board/update?num=
+	@GetMapping("/update")
+	public String update(HttpServletRequest request, Model model) {
+		System.out.println("BoardCondroller update");
+		int num = Integer.parseInt(request.getParameter("num"));
+		// 글가져오기 
+		BoardDTO boardDTO = boardService.getBoard(num);
+		
+		model.addAttribute("boardDTO", boardDTO);
+		
+		// center/update.jsp
+		// WEB-INF/views/center/update.jsp
+		return "center/update";
+	}//
+	
+	
+//	가상주소 http://localhost:8080/myweb/board/updatePro?num=
+	@PostMapping("/updatePro")
+	public String updatePro(BoardDTO boardDTO) {
+		System.out.println("BoardCondroller updatePro");
+		// num name subject content
+		// 글수정
+		boardService.updateBoard(boardDTO);
+		
+		// center/updatePro.jsp
+		// WEB-INF/views/center/updatePro.jsp
+		return "redirect:/board/list";
+	}//	
 	
 	
 //   ------------------파일글쓰기-------------------	
@@ -166,5 +197,69 @@ public class BoardController {
 		return "redirect:/board/list";
 	}//		
 	
+	
+//  ------------------파일글수정-------------------	
+//	가상주소 http://localhost:8080/myweb/board/fupdate?num=
+	@GetMapping("/fupdate")
+	public String fupdate(HttpServletRequest request, Model model) {
+		System.out.println("BoardCondroller fupdate");
+		int num = Integer.parseInt(request.getParameter("num"));
+		// 글가져오기 
+		BoardDTO boardDTO = boardService.getBoard(num);
+		
+		model.addAttribute("boardDTO", boardDTO);
+		
+		// center/fupdate.jsp
+		// WEB-INF/views/center/update.jsp
+		return "center/fupdate";
+	}//	
+	
+	
+//	가상주소 http://localhost:8080/myweb/board/fupdatePro?num=
+	@PostMapping("/fupdatePro")
+	public String fupdatePro(HttpServletRequest request, MultipartFile file)throws Exception{  // multi는 DTO에바로못담음 
+		System.out.println("BoardCondroller fupdatePro");
+		// num name subject content file oldfile
+		BoardDTO boardDTO = new BoardDTO();
+		boardDTO.setNum(Integer.parseInt(request.getParameter("num")));
+		boardDTO.setName(request.getParameter("name"));
+		boardDTO.setSubject(request.getParameter("subject"));
+		boardDTO.setContent(request.getParameter("content"));
+		// 업로드 파일 있는지 없닌지 확인
+		if(file.isEmpty()){
+			// 첨부파일 없는경우 = oldfile 저장
+			boardDTO.setFile(request.getParameter("oldfile"));
+		}else{
+			// 첨부파일있는경우
+			//업로드파일이름 랜덤문자_파일이름 
+			UUID uuid = UUID.randomUUID();
+			String filename=uuid.toString()+"_"+file.getOriginalFilename();
+			// 원본파일 -> upload 폴더 복사 
+			FileCopyUtils.copy(file.getBytes(), new File(uploadPath,filename) );
+			
+			// boardDTO 저장
+			boardDTO.setFile(filename);
+		}
+		
+		// 글수정
+		boardService.fupdateBoard(boardDTO);
+		
+		// center/fupdatePro.jsp
+		// WEB-INF/views/center/fupdatePro.jsp
+		return "redirect:/board/list";
+	}//		
+	
+//	가상주소 http://localhost:8080/myweb/board/delete
+	@GetMapping("/delete")
+	public String delete(HttpServletRequest request) {
+		System.out.println("BoardCondroller delete");
+		int num = Integer.parseInt(request.getParameter("num"));
+		// 글삭제
+		boardService.deleteBoard(num);
+		
+		// center/fupdate.jsp
+		// WEB-INF/views/center/update.jsp
+		return "redirect:/board/list";
+	}//		
 	
 }//클래스 

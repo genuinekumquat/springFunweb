@@ -61,6 +61,31 @@ public class BoardService {
 		
 		return boardDAO.getBoard(num);
 	}
+
+	public void updateReadcount(int num) {
+		System.out.println("BoardService updateReadcount()");
+		
+		boardDAO.updateReadcount(num);
+	}
+
+	public void updateBoard(BoardDTO boardDTO) {
+		System.out.println("BoardService updateReadcount()");
+		
+		boardDAO.updateBoard(boardDTO);
+	}
+
+	public void fupdateBoard(BoardDTO boardDTO) {
+		System.out.println("BoardService fupdateBoard()");
+		
+		boardDAO.fupdateBoard(boardDTO);
+	}
+
+	public void deleteBoard(int num) {
+		System.out.println("BoardService deleteBoard()");
+		
+		boardDAO.deleteBoard(num);
+	}
+
 	
 
 }//클래스

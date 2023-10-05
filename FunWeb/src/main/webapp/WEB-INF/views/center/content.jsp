@@ -75,11 +75,11 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 	//if(id.equals(boardDTO.getName())){
 		%>
 <input type="button" value="글수정" class="btn"
-onclick="location.href='update.bo?num=${boardDTO.num}'">
+onclick="location.href='${pageContext.request.contextPath}/board/update?num=${boardDTO.num}'">
 <input type="button" value="글삭제" class="btn"
-onclick="location.href='delete.bo?num=${boardDTO.num}'">
+onclick="location.href='${pageContext.request.contextPath}/board/delete?num=${boardDTO.num}'">
 <input type="button" value="파일 글수정" class="btn"
-onclick="location.href='fupdate.bo?num=${boardDTO.num}'">
+onclick="location.href='${pageContext.request.contextPath}/board/fupdate?num=${boardDTO.num}'">
 	
 		<%
 //	}
