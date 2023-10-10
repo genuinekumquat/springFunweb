@@ -50,10 +50,10 @@ public class BoardService {
 		return boardDAO.getBoardList(pageDTO);
 	}
 
-	public int getBoardCount() {
+	public int getBoardCount(PageDTO pageDTO) {
 		System.out.println("BoardService getBoardCount()");
 		
-		return boardDAO.getBoardCount();
+		return boardDAO.getBoardCount(pageDTO);
 	}
 
 	public BoardDTO getBoard(int num) {

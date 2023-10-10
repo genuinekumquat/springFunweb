@@ -13,12 +13,14 @@
 		insert into board(num,name,subject,content,readcount,date,file) values(#{num},#{name},#{subject},#{content},#{readcount},#{date},#{file})
 	</insert>
 	
+<!-- 검색어 포함 -->
 	<select id="getBoardList" resultType="com.itwillbs.domain.BoardDTO">
-		select * from board order by num desc limit #{startRow}, #{pageSize}
+		select * from board <if test="search != null"> where subject like CONCAT('%',#{search},'%')</if> order by num desc limit #{startRow}, #{pageSize}
 	</select>
 	
+<!-- 검색어 포함 -->	
 	<select id="getBoardCount" resultType="java.lang.Integer">
-		select count(*) from board 
+		select count(*) from board <if test="search != null"> where subject like CONCAT('%',#{search},'%')</if> 
 	</select>
 
 	<select id="getBoard" resultType="com.itwillbs.domain.BoardDTO">

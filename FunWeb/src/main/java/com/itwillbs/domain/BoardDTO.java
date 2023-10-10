@@ -15,13 +15,22 @@ public class BoardDTO {
 		private Timestamp date;
 		//첨부파일(파일이름) 
 		private String file;
-		
+		//검색어 
+//		private String search;
 		
 		@Override
 		public String toString() {
 			return "BoardDTO [num=" + num + ", name=" + name + ", subject=" + subject + ", content=" + content
 					+ ", readcount=" + readcount + ", date=" + date + ", file=" + file + "]";
 		}
+
+//		public String getSearch() {
+//			return search;
+//		}
+//
+//		public void setSearch(String search) {
+//			this.search = search;
+//		}		
 		
 		public String getFile() {
 			return file;
@@ -65,5 +74,7 @@ public class BoardDTO {
 		public void setDate(Timestamp date) {
 			this.date = date;
 		}
+
+
 
 }

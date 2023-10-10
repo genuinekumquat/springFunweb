@@ -10,7 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.PageDTO;
+import com.itwillbs.service.BoardService;
 import com.itwillbs.service.MemberService;
 
 @RestController  // Ajax 전용 컨트롤러 
@@ -19,6 +22,9 @@ public class AjaxController {
 	// 객체생성 
 	@Inject
 	private MemberService memberService;
+
+	@Inject
+	private BoardService boardService;	
 	
 	//	가상주소 http://localhost:8080/FunWeb/member/idCheck
 //	@RequestMapping(value = "insert", method = RequestMethod.GET)
@@ -60,5 +66,27 @@ public class AjaxController {
 		
 		return entity;
 	}//		
+	
+	//	가상주소 http://localhost:8080/FunWeb/board/listjson
+//	@RequestMapping(value = "insert", method = RequestMethod.GET)
+	@GetMapping("/board/listjson")
+	public ResponseEntity<List<BoardDTO>> boardlistjson() {
+		//ResponseEntity:  응답출력결과 저장하는 파일 제공 
+		System.out.println("AjaxController boardlistjson");
+		// 페이징처리 
+		PageDTO pageDTO = new PageDTO();
+		pageDTO.setPageSize(5);
+		pageDTO.setPageNum("1");
+		pageDTO.setCurrentPage(1);
+				
+		List<BoardDTO> boardList = boardService.getBoardList(pageDTO);
+		//List<MemberDTO>memberList -> json으로 변경하는 프로그램 설치 (jackson-databind)
+		//                  ->자동으로  json으로 변경 
+		
+		// 출력한 결과을 가지고 join.jsp이동( 되돌아감)
+		ResponseEntity<List<BoardDTO>> entity = new ResponseEntity<List<BoardDTO>>(boardList, HttpStatus.OK);
+		
+		return entity;
+	}//			
 
 }

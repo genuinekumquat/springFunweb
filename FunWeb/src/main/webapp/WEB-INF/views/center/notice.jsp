@@ -102,7 +102,7 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 
 
 <div id="table_search">
-<form action="listSearch.bo" method="get">
+<form action="${pageContext.request.contextPath}/board/list" method="get">
 <input type="text" name="search" class="input_box">
 <input type="submit" value="search" class="btn">
 </form>
@@ -120,7 +120,7 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 // }
 %> 
 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-	<a href="${pageContext.request.contextPath}/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}">Prev</a>
+	<a href="${pageContext.request.contextPath}/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}">Prev</a>
 </c:if>
 
 
@@ -134,7 +134,7 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 
 <c:forEach var="i" begin="${pageDTO.startPage}" 
                    end="${pageDTO.endPage}" step="1">
-<a href="${pageContext.request.contextPath}/board/list?pageNum=${i}">${i}</a> 
+<a href="${pageContext.request.contextPath}/board/list?pageNum=${i}&search=${pageDTO.search}">${i}</a> 
 </c:forEach>
 
 <%
@@ -147,7 +147,7 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 %>
 
 <c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath}/board/list?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">Next</a>
+	<a href="${pageContext.request.contextPath}/board/list?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}">Next</a>
 </c:if>
 
 </div>

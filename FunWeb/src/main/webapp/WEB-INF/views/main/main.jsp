@@ -102,5 +102,32 @@ quis ante......</dd>
 <jsp:include page="../inc/bottom.jsp"></jsp:include>
 <!-- 푸터 들어가는 곳 -->
 </div>
+
+<script type="text/javascript" 
+        src="${pageContext.request.contextPath}/resources/script/jquery-3.7.0.js"></script>
+ 
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.brown').click(function(){
+// 			alert("클릭");
+//          table 화면 초기화
+			$('table').html('');
+			
+			$.ajax({
+				url:'${pageContext.request.contextPath}/board/listjson',
+				dataType:'json',
+				success:function(result){
+					//json 배열 반복, 추가 출력
+					$.each(result,function(index,item){
+						var date = new Date(item.date);
+						var d = date.getFullYear()+'.'+(date.getMonth()+1)+'.'+date.getDay();
+						$('table').append('<tr><td class="contxt"><a href="${pageContext.request.contextPath}/board/content?num='+item.num+'">'+item.subject+'</a></td><td>'+ d +'</td></tr>');
+					});
+				}
+			});//ajax
+		});//click
+	});//ready
+</script>     
+  
 </body>
 </html>

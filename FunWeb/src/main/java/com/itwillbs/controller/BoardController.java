@@ -55,11 +55,15 @@ public class BoardController {
 	}//	
 	
 	//	가상주소 http://localhost:8080/FunWeb/board/list
-	//    가상주소 http://localhost:8080/FunWeb/board/list?pageNum=2
+	//  가상주소 http://localhost:8080/FunWeb/board/list?pageNum=2
+	//  가상주소 http://localhost:8080/FunWeb/board/list?pageNum=2&search=검색어	
 	//@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@GetMapping("/list")
 	public String list(HttpServletRequest request,Model model) {
 		System.out.println("BoardController list()");
+		// 검색어 가져오기 
+		String search = request.getParameter("search");
+		
 		//한 화면에 보여줄 글개수 설정
 		int pageSize = 10;
 		// 현 페이지 번호 가져오기
@@ -76,11 +80,14 @@ public class BoardController {
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
-	
+		// 검색어 저장 
+		pageDTO.setSearch(search);
+		
+		
 		List<BoardDTO> boardList= boardService.getBoardList(pageDTO);
 
 		// 전체 글개수 가져오기
-		int count = boardService.getBoardCount();
+		int count = boardService.getBoardCount(pageDTO);
 		// 한화면에 보여줄 페이지 개수 설정
 		int pageBlock = 10;
 		// 시작하는 페이지 번호

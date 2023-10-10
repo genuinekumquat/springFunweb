@@ -36,10 +36,10 @@ public class BoardDAO {
 		return sqlSession.selectList(namespace+".getBoardList", pageDTO);
 	}//getBoardList
 
-	public int getBoardCount() {
+	public int getBoardCount(PageDTO pageDTO) {
 		System.out.println("BoardDAO getBoardCount()");
 		
-		return sqlSession.selectOne(namespace+".getBoardCount");
+		return sqlSession.selectOne(namespace+".getBoardCount",pageDTO);
 	}//getBoardCount
 
 	public BoardDTO getBoard(int num) {
