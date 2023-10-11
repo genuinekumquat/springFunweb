@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mappers.reboardMapper">
+
+	<select id="getMaxNum" resultType="java.lang.Integer">
+		select max(num) from reboard
+	</select>
+
+	<insert id="insertBoard" parameterType="map">
+		insert into reboard(num,name,subject,content,readcount,date,re_ref,re_lev,re_seq)
+		values(#{num},#{name},#{subject},#{content},#{readcount},#{date},#{re_ref},#{re_lev},#{re_seq})
+	</insert>
+	
+	
+	
+</mapper>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>center/fwrite.jsp</title>
+<title>center/write.jsp</title>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -52,19 +52,16 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 
 <!-- 게시판 -->
 <%
-String id = (String)session.getAttribute("id");
+//String id = (String)session.getAttribute("id");
 %>
 <article>
-<h1>File Write Notice</h1>
-<!-- 파일첨부 method="post" , enctype="multipart/form-data"-->
-<form action="${pageContext.request.contextPath}/board/fwritePro" method="post" enctype="multipart/form-data">
+<h1>Re Write Notice</h1>
+<form action="${pageContext.request.contextPath}/reboard/writePro" method="post">
 <table id="notice">
 <tr><td>글쓴이</td>
-<td><input type="text" name="name" value="<%=id%>" readonly="readonly"></td></tr>
+<td><input type="text" name="name" value="${sessionScope.id }" readonly="readonly"></td></tr>
 <tr><td>제목</td>
     <td><input type="text" name="subject" ></td></tr>
-<tr><td>첨부파일</td>
-    <td><input type="file" name="file" ></td></tr>    
 <tr><td>내용</td>
     <td><textarea rows="10" cols="20" name="content"></textarea></td></tr>    
 </table>

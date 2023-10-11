@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>center/fwrite.jsp</title>
+<title>center/content.jsp</title>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -41,9 +41,8 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 <!-- 왼쪽메뉴 -->
 <nav id="sub_menu">
 <ul>
-<li><a href="${pageContext.request.contextPath}/board/list">Notice</a></li>
-<li><a href="${pageContext.request.contextPath}/reboard/list">답글 게시판</a></li>
-<li><a href="${pageContext.request.contextPath}/reboard/write">답글 게시판 글쓰기</a></li>
+<li><a href="#">Notice</a></li>
+<li><a href="#">Public News</a></li>
 <li><a href="#">Driver Download</a></li>
 <li><a href="#">Service Policy</a></li>
 </ul>
@@ -52,26 +51,44 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 
 <!-- 게시판 -->
 <%
-String id = (String)session.getAttribute("id");
+//String id = (String)session.getAttribute("id");
+//BoardDTO boardDTO = (BoardDTO)request.getAttribute("boardDTO");
 %>
 <article>
-<h1>File Write Notice</h1>
-<!-- 파일첨부 method="post" , enctype="multipart/form-data"-->
-<form action="${pageContext.request.contextPath}/board/fwritePro" method="post" enctype="multipart/form-data">
+<h1>Content Notice</h1>
 <table id="notice">
-<tr><td>글쓴이</td>
-<td><input type="text" name="name" value="<%=id%>" readonly="readonly"></td></tr>
-<tr><td>제목</td>
-    <td><input type="text" name="subject" ></td></tr>
+<tr><td>글번호</td><td>${boardDTO.num}</td></tr>
+<tr><td>글쓴이</td><td>${boardDTO.name}</td></tr>
+<tr><td>글쓴날짜</td><td>${boardDTO.date}</td></tr>
+<tr><td>조회수</td><td>${boardDTO.readcount}</td></tr>
+<tr><td>제목</td><td>${boardDTO.subject}</td></tr>
 <tr><td>첨부파일</td>
-    <td><input type="file" name="file" ></td></tr>    
-<tr><td>내용</td>
-    <td><textarea rows="10" cols="20" name="content"></textarea></td></tr>    
+    <td><a href="${pageContext.request.contextPath}/resources/upload/${boardDTO.file}" download> ${boardDTO.file} </a>
+        <img src="${pageContext.request.contextPath}/resources/upload/${boardDTO.file}" width="200" height="200">
+        </td></tr>
+<tr><td>내용</td><td>${boardDTO.content}</td></tr>    
 </table>
 <div id="table_search">
-<input type="submit" value="글쓰기" class="btn">
+<%
+// 로그인, 글쓴이 일치
+//if(id!=null){
+	//if(id.equals(boardDTO.getName())){
+		%>
+<input type="button" value="글수정" class="btn"
+onclick="location.href='${pageContext.request.contextPath}/board/update?num=${boardDTO.num}'">
+<input type="button" value="글삭제" class="btn"
+onclick="location.href='${pageContext.request.contextPath}/board/delete?num=${boardDTO.num}'">
+<input type="button" value="파일 글수정" class="btn"
+onclick="location.href='${pageContext.request.contextPath}/board/fupdate?num=${boardDTO.num}'">
+	
+		<%
+//	}
+//}
+%>
+<input type="button" value="글목록" class="btn" 
+       onclick="location.href='${pageContext.request.contextPath}/board/list'">
 </div>
-</form>
+
 
 <div class="clear"></div>
 <div id="page_control">

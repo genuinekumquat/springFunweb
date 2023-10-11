@@ -269,4 +269,6 @@ public class BoardController {
 		return "redirect:/board/list";
 	}//		
 	
+	
+	
 }//클래스 

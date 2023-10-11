@@ -41,8 +41,9 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 <!-- 왼쪽메뉴 -->
 <nav id="sub_menu">
 <ul>
-<li><a href="#">Notice</a></li>
-<li><a href="#">Public News</a></li>
+<li><a href="${pageContext.request.contextPath}/board/list">Notice</a></li>
+<li><a href="${pageContext.request.contextPath}/reboard/list">답글 게시판</a></li>
+<li><a href="${pageContext.request.contextPath}/reboard/write">답글 게시판 글쓰기</a></li>
 <li><a href="#">Driver Download</a></li>
 <li><a href="#">Service Policy</a></li>
 </ul>
