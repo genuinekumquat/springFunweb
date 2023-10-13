@@ -1,13 +1,10 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.itwillbs.domain.BoardDTO"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>center/write.jsp</title>
+<title>recenter/write.jsp</title>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -52,7 +49,7 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 
 <!-- 게시판 -->
 <%
-//String id = (String)session.getAttribute("id");
+// String id = (String)session.getAttribute("id");
 %>
 <article>
 <h1>Re Write Notice</h1>

@@ -57,7 +57,7 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 // PageDTO pageDTO=(PageDTO)request.getAttribute("pageDTO");
 %>
 <article>
-<h1>Notice</h1>
+<h1>Re Notice</h1>
 <table id="notice">
 <tr><th class="tno">No.</th>
     <th class="ttitle">Title</th>
@@ -71,9 +71,15 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
     	%>
     	
     <c:forEach var="boardDTO" items="${boardList }">	
-<tr onclick="location.href='${pageContext.request.contextPath}/board/content?num=${boardDTO.num}'">
+<tr onclick="location.href='${pageContext.request.contextPath}/reboard/content?num=${boardDTO.num}'">
     <td>${boardDTO.num}</td>
-    <td class="left">${boardDTO.subject}</td>
+    <td class="left">
+    <c:if test="${boardDTO.re_lev > 0}">
+    	<c:set var="wid" value="${boardDTO.re_lev * 10}"></c:set>   <%--  레벨값을 변수를지정  --%>
+    	<img src="${pageContext.request.contextPath}/resources/images/center/level.gif" width="${wid}" height="10px">
+    	<img src="${pageContext.request.contextPath}/resources/images/center/re.gif">
+    </c:if>
+    ${boardDTO.subject}</td>
     <td>${boardDTO.name}</td>
     <td><fmt:formatDate value="${boardDTO.date}" pattern="yyyy.MM.dd"/> </td>
     <td>${boardDTO.readcount}</td></tr>  
@@ -91,9 +97,9 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 	
 <div id="table_search">
 <input type="button" value="글쓰기" class="btn" 
-       onclick="location.href='${pageContext.request.contextPath}/board/write'">
+       onclick="location.href='${pageContext.request.contextPath}/reboard/write'">
 <input type="button" value="파일글쓰기" class="btn" 
-       onclick="location.href='${pageContext.request.contextPath}/board/fwrite'">       
+       onclick="location.href='${pageContext.request.contextPath}/reboard/fwrite'">       
 </div>	
 
 </c:if>
@@ -103,7 +109,7 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 
 
 <div id="table_search">
-<form action="${pageContext.request.contextPath}/board/list" method="get">
+<form action="${pageContext.request.contextPath}/reboard/list" method="get">
 <input type="text" name="search" class="input_box">
 <input type="submit" value="search" class="btn">
 </form>
@@ -121,7 +127,7 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 // }
 %> 
 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-	<a href="${pageContext.request.contextPath}/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}">Prev</a>
+	<a href="${pageContext.request.contextPath}/reboard/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}">Prev</a>
 </c:if>
 
 
@@ -135,7 +141,7 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 
 <c:forEach var="i" begin="${pageDTO.startPage}" 
                    end="${pageDTO.endPage}" step="1">
-<a href="${pageContext.request.contextPath}/board/list?pageNum=${i}&search=${pageDTO.search}">${i}</a> 
+<a href="${pageContext.request.contextPath}/reboard/list?pageNum=${i}&search=${pageDTO.search}">${i}</a> 
 </c:forEach>
 
 <%
@@ -148,7 +154,7 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 %>
 
 <c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath}/board/list?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}">Next</a>
+	<a href="${pageContext.request.contextPath}/reboard/list?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}">Next</a>
 </c:if>
 
 </div>

@@ -6,14 +6,44 @@
 <mapper namespace="com.itwillbs.mappers.reboardMapper">
 
 	<select id="getMaxNum" resultType="java.lang.Integer">
-		select max(num) from reboard
+		select max(num) from reboard 
 	</select>
-
+	
 	<insert id="insertBoard" parameterType="map">
 		insert into reboard(num,name,subject,content,readcount,date,re_ref,re_lev,re_seq)
 		values(#{num},#{name},#{subject},#{content},#{readcount},#{date},#{re_ref},#{re_lev},#{re_seq})
 	</insert>
+  
+  	<select id="getBoardList" resultType="map">
+		select * from reboard 
+		order by re_ref desc, re_seq asc  
+		limit #{startRow}, #{pageSize}
+	</select>
 	
+	<select id="getBoardCount" resultType="java.lang.Integer">
+		select count(*) from reboard 
+	</select>
 	
+	<select id="getBoard" resultType="map">
+		select * from reboard 
+		where num = #{num}
+	</select>
+	
+	<update id="updateReadcount">
+		update reboard
+		set readcount = readcount + 1
+		where num = #{num}
+	</update>	
+	
+<!-- 같은 그룹중에 답글이 있으면	=> 답글 순서 1칸 아래로 재배치 -->
+	<update id="updateReSeq" parameterType="map">
+		update reboard
+		set re_seq = re_seq + 1 
+		where re_ref = #{re_ref} and re_seq > #{re_seq}
+	</update>
 	
 </mapper>
+
+
+
+

@@ -1,13 +1,10 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.itwillbs.domain.BoardDTO"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>center/content.jsp</title>
+<title>recenter/content.jsp</title>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -41,8 +38,9 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 <!-- 왼쪽메뉴 -->
 <nav id="sub_menu">
 <ul>
-<li><a href="#">Notice</a></li>
-<li><a href="#">Public News</a></li>
+<li><a href="${pageContext.request.contextPath}/board/list">Notice</a></li>
+<li><a href="${pageContext.request.contextPath}/reboard/list">답글 게시판</a></li>
+<li><a href="${pageContext.request.contextPath}/reboard/write">답글 게시판 글쓰기</a></li>
 <li><a href="#">Driver Download</a></li>
 <li><a href="#">Service Policy</a></li>
 </ul>
@@ -51,11 +49,11 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 
 <!-- 게시판 -->
 <%
-//String id = (String)session.getAttribute("id");
-//BoardDTO boardDTO = (BoardDTO)request.getAttribute("boardDTO");
+// String id = (String)session.getAttribute("id");
+// BoardDTO boardDTO = (BoardDTO)request.getAttribute("boardDTO");
 %>
 <article>
-<h1>Content Notice</h1>
+<h1>Re Content Notice</h1>
 <table id="notice">
 <tr><td>글번호</td><td>${boardDTO.num}</td></tr>
 <tr><td>글쓴이</td><td>${boardDTO.name}</td></tr>
@@ -63,30 +61,37 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 <tr><td>조회수</td><td>${boardDTO.readcount}</td></tr>
 <tr><td>제목</td><td>${boardDTO.subject}</td></tr>
 <tr><td>첨부파일</td>
-    <td><a href="${pageContext.request.contextPath}/resources/upload/${boardDTO.file}" download> ${boardDTO.file} </a>
-        <img src="${pageContext.request.contextPath}/resources/upload/${boardDTO.file}" width="200" height="200">
+    <td><a href="${pageContext.request.contextPath}/resources/upload/${boardDTO.file}" download>
+        ${boardDTO.file}</a>
+        <img src="${pageContext.request.contextPath}/resources/upload/${boardDTO.file}" 
+         width="200" height="200">
         </td></tr>
 <tr><td>내용</td><td>${boardDTO.content}</td></tr>    
 </table>
 <div id="table_search">
 <%
 // 로그인, 글쓴이 일치
-//if(id!=null){
-	//if(id.equals(boardDTO.getName())){
+// if(id!=null){
+// 	if(id.equals(boardDTO.getName())){
 		%>
 <input type="button" value="글수정" class="btn"
-onclick="location.href='${pageContext.request.contextPath}/board/update?num=${boardDTO.num}'">
+onclick="location.href='${pageContext.request.contextPath}/reboard/update?num=${boardDTO.num}'">
 <input type="button" value="글삭제" class="btn"
-onclick="location.href='${pageContext.request.contextPath}/board/delete?num=${boardDTO.num}'">
+onclick="location.href='${pageContext.request.contextPath}/reboard/delete?num=${boardDTO.num}'">
 <input type="button" value="파일 글수정" class="btn"
-onclick="location.href='${pageContext.request.contextPath}/board/fupdate?num=${boardDTO.num}'">
+onclick="location.href='${pageContext.request.contextPath}/reboard/fupdate?num=${boardDTO.num}'">
 	
 		<%
-//	}
-//}
+// 	}
+// }
 %>
+
+<input type="button" value="답글쓰기" class="btn"
+onclick="location.href='${pageContext.request.contextPath}/reboard/rewrite?num=${boardDTO.num}&re_ref=${boardDTO.re_ref}&re_lev=${boardDTO.re_lev}&re_seq=${boardDTO.re_seq}'">
+
+
 <input type="button" value="글목록" class="btn" 
-       onclick="location.href='${pageContext.request.contextPath}/board/list'">
+       onclick="location.href='${pageContext.request.contextPath}/reboard/list'">
 </div>
 
 

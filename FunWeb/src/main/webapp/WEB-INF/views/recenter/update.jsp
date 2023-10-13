@@ -49,8 +49,8 @@ include 액션태그 : 반복되는 화면을 파일로 만들고 파일을 가�
 
 <!-- 게시판 -->
 <%
-//String id = (String)session.getAttribute("id");
-//BoardDTO boardDTO=(BoardDTO)request.getAttribute("boardDTO");
+// String id = (String)session.getAttribute("id");
+// BoardDTO boardDTO=(BoardDTO)request.getAttribute("boardDTO");
 %>
 <article>
 <h1>Update Notice</h1>
